@@ -22,25 +22,3 @@ class Usuario(models.Model):
 
     def _str_(self):
         return self.nome
-
-
-class Materia(models.Model):
-    nome = models.CharField(max_length=50)
-
-    class Meta:
-        ordering = ['nome']
-
-    def __str__(self):
-        return self.nome
-
-class Assuntos(models.Model):
-    titulo = models.CharField(max_length=100)
-    descricao = models.CharField(max_length=500)
-    usuario_criador_id = models.ForeignKey(Usuario)
-    materia_id = models.ForeignKey(Materia)
-
-    class Meta:
-        ordering = ['materia_id', 'titulo']
-
-    def __str__(self):
-        return self.titulo

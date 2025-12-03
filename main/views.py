@@ -1,11 +1,6 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def home(request):
-
     return render(request, 'site/home.html')
-
-def perfil_aluno(request):
-    return render(request, 'site/perfil_aluno.html')
-
-def perfil_professores(request):
-    return render(request, 'site/perfil_professores.html')

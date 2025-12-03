@@ -1,11 +1,7 @@
 from django.contrib import admin
-from .models import Usuario, Materia, Assunto
-# Register your models here.
-@admin.register(Usuario)
-class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nome', 'email', 'tipo_usuario', 'criado_em')
-    search_fields = ('nome', 'email')
-    ordering = ('nome',)
+from .models import Materia, Assunto
+
+
 
 @admin.register(Materia)
 class MateriaAdmin(admin.ModelAdmin):

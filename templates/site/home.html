@@ -1,1 +1,177 @@
 {% extends 'base.html' %}
+
+{% block content %}
+
+    <style>
+        /* --- ESTILOS ESPECÍFICOS DA HOME --- */
+
+        /* 1. MENU LATERAL (SIDEBAR) */
+        .home-sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 2000; /* Acima de tudo */
+            top: 0;
+            left: 0;
+            background-color: #34495e; /* Azul Escuro do tema */
+            overflow-x: hidden;
+            transition: 0.3s;
+            padding-top: 60px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+        }
+
+        .home-sidebar a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #ecf0f1;
+            display: block;
+            transition: 0.3s;
+            border-bottom: 1px solid #2c3e50;
+        }
+
+        .home-sidebar a:hover {
+            background-color: #2c3e50;
+            padding-left: 35px; /* Efeitinho de movimento */
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 36px;
+            margin-left: 50px;
+            color: #bdc3c7 !important;
+            border: none !important;
+        }
+
+        /* Botão de Abrir (Hambúrguer) */
+        .open-btn {
+            font-size: 30px;
+            cursor: pointer;
+            background-color: transparent;
+            color: #2c3e50;
+            border: none;
+            position: absolute;
+            top: 80px; /* Ajuste conforme a altura do seu header */
+            left: 30px;
+        }
+
+        /* 2. BOAS VINDAS */
+        .welcome-section {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 50px;
+        }
+
+        .welcome-title {
+            color: #2c3e50;
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .welcome-subtitle {
+            color: #7f8c8d;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        /* 3. GRID DE MATÉRIAS (RETÂNGULOS) */
+        .materias-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 80px; /* Espaço para o footer não colar */
+        }
+
+        .materia-card {
+            background-color: white;
+            width: 250px;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-bottom: 5px solid #3498db; /* Cor padrão */
+        }
+
+        .materia-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+
+        .materia-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .materia-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        /* 4. FOOTER */
+        .site-footer {
+            background-color: #2c3e50;
+            color: #bdc3c7;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto; /* Empurra para baixo */
+            width: 100%;
+            /* Para garantir que fique na largura total mesmo dentro do container */
+            margin-left: -40px; 
+            width: calc(100% + 80px);
+            margin-bottom: -40px;
+        }
+    </style>
+
+    <div id="homeSidenav" class="home-sidebar">
+        <a href="javascript:void(0)" class="close-btn" onclick="closeNav()">&times;</a>
+        
+        
+        <a href="#">ℹ️ Sobre</a> </div>
+
+    <button class="open-btn" onclick="openNav()">&#9776;</button>
+
+
+    <div class="welcome-section">
+        <h1 class="welcome-title">Seja Bem-vindo(a), {{ user.first_name|default:user.username }}!</h1>
+        <p class="welcome-subtitle">O conhecimento está a um clique de distância. Escolha sua matéria:</p>
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid #ddd; margin: 0 50px 50px 50px;">
+
+    <div class="materias-grid">
+        {% for materia in materias_globais %}
+            <a href="{% url 'materia_lista' materia.id %}" class="materia-card">
+                <span class="materia-icon">
+                    {% if materia.icone %}{{ materia.icone }}{% else %}📚{% endif %}
+                </span>
+                <span class="materia-name">{{ materia.nome }}</span>
+            </a>
+        {% empty %}
+            <p style="color: #777;">Nenhuma matéria cadastrada no momento.</p>
+        {% endfor %}
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2025 Manual do Burro. Todos os direitos reservados.</p>
+        <p style="font-size: 12px;">Feito para descomplicar o Ensino Médio.</p>
+    </footer>
+
+    <script>
+        function openNav() {
+            document.getElementById("homeSidenav").style.width = "280px";
+        }
+
+        function closeNav() {
+            document.getElementById("homeSidenav").style.width = "0";
+        }
+    </script>
+
+{% endblock %}

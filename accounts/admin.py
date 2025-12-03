@@ -4,6 +4,6 @@ from .models import Usuario
 
 @admin.register(Usuario)
 class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nome', 'email', 'tipo_usuario', 'criado_em')
+    list_display = ('id', 'nome', 'email', 'tipo_usuario', 'criado_em', 'matricula')
     search_fields = ('nome', 'email')
     ordering = ('nome',)

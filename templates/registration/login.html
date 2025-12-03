@@ -8,7 +8,7 @@
     <div class="card" style="width: 350px; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
         
         <h2 style="text-align: center; color: #2c3e50; margin-bottom: 20px;">Bem vindo <br>
-        Digite seu nome e senha </h2>
+        Digite seu nome e matricula </h2>
         
         <form method="POST">
             {% csrf_token %}
@@ -20,7 +20,7 @@
                         {% if field.name == 'username' %}
                             Usuário
                         {% elif field.name == 'password' %}
-                            Senha
+                            Matricula
                         {% else %}
                             {{ field.label }}
                         {% endif %}

@@ -1,56 +1,38 @@
 {% extends 'base.html' %}
-{% block title %} Login {% endblock %}
+{% block title %} Acesso {% endblock %}
 
 {% block content %}
-
 <div style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
 
     <div class="card" style="width: 350px; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
         
-        <h2 style="text-align: center; color: #2c3e50; margin-bottom: 20px;">Bem vindo <br>
-        Digite seu nome e matricula </h2>
+        <h2 style="text-align: center; color: #2c3e50; margin-bottom: 20px;">Acesso ao Sistema</h2>
         
+        {% if erro %}
+            <div style="color: #e74c3c; background-color: #fadbd8; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center; font-size: 14px;">
+                {{ erro }}
+            </div>
+        {% endif %}
+
         <form method="POST">
             {% csrf_token %}
-            <input type="hidden" name="next" value="{{ next }}">
             
-            {% for field in form %}
-                <div style="margin-bottom: 15px;">
-                    <label for="{{ field.id_for_label }}" style="display: block; color: #666; margin-bottom: 5px; font-size: 14px;">
-                        {% if field.name == 'username' %}
-                            Usuário
-                        {% elif field.name == 'password' %}
-                            Matricula
-                        {% else %}
-                            {{ field.label }}
-                        {% endif %}
-                    </label>
-                    
-                    <div style="width: 100%;">
-                        {{ field }}
-                    </div>
-                    
-                    {% for error in field.errors %}
-                        <div style="color: #e74c3c; font-size: 12px; margin-top: 5px;">{{ error }}</div>
-                    {% endfor %}
-                </div>
-            {% endfor %} 
-            
-            {% if form.non_field_errors %}
-                <div style="color: #e74c3c; font-size: 13px; text-align: center; margin-bottom: 15px; background-color: #fadbd8; padding: 10px; border-radius: 5px;">
-                    {{ form.non_field_errors }}
-                </div>
-            {% endif %}
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; color: #666; margin-bottom: 5px;">Matrícula</label>
+                <input type="text" name="matricula" required placeholder="Ex: 250001" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; color: #666; margin-bottom: 5px;">Senha</label>
+                <input type="password" name="senha" required placeholder="Sua senha" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+            </div>
 
             <div style="text-align: center;">
-                <button type="submit" style="width: 100%; padding: 12px; background-color: #27ae60; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 10px; transition: 0.3s;">
+                <button type="submit" style="width: 100%; padding: 12px; background-color: #2c3e50; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 10px; transition: 0.3s;">
                     Entrar
                 </button>  
             </div>
         </form>
-
     </div>
-
 </div>
-
 {% endblock %}

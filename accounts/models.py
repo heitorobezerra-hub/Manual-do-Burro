@@ -7,12 +7,12 @@ class Usuario(models.Model):
         PROFESSOR = 'PROFESSOR', 'Professor'
         ADMIN = 'ADMIN', 'Administrador'
 
+    nome = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     
     # Campo matrícula agora pode ficar em branco no formulário (blank=True)
     # e não é editável (editable=False)
     matricula = models.CharField(max_length=10, unique=True, blank=True, editable=False)
-    senha = models.CharField(max_length=50, null=False)
     
     criado_em = models.DateTimeField(auto_now_add=True)
     
@@ -23,10 +23,10 @@ class Usuario(models.Model):
     )
 
     class Meta:
-        ordering = ['matricula']
+        ordering = ['nome']
 
     def _str(self): # Corrigido de str para __str_
-        return self.matricula
+        return self.nome
 
     def save(self, *args, **kwargs):
         # Se a matrícula ainda não existe (é um cadastro novo)

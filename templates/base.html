@@ -14,35 +14,17 @@
             color: white;
             padding: 15px 30px;
             display: flex;
+            justify-content: space-between; 
             align-items: center;
-            /* Garante que o conteúdo normal vá para as pontas */
-            justify-content: flex-end; 
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            position: relative; /* Necessário para centralizar o logo */
         }
 
-        /* Container do Logo Centralizado */
-        .logo-container {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%); /* Centralização exata */
-            text-align: center;
-        }
+        .header-left { display: flex; align-items: center; gap: 20px; }
+        .header-right { display: flex; align-items: center; gap: 15px; }
 
+        /* Logo */
         .logo {
-            font-size: 24px; /* Aumentei um pouco */
-            font-weight: bold; 
-            text-decoration: none; 
-            color: white;
-            white-space: nowrap; /* Evita quebra de linha */
-        }
-
-        /* Lado Direito (Usuário/Botões) */
-        .header-right { 
-            display: flex; 
-            align-items: center; 
-            gap: 15px; 
-            z-index: 2; /* Garante que fique clicável */
+            font-size: 22px; font-weight: bold; text-decoration: none; color: white;
         }
 
         /* Botões */
@@ -64,7 +46,7 @@
 <body>
 
     <header>
-        <div class="logo-container">
+        <div class="header-left">
             <a href="{% url 'home' %}" class="logo">🐴 Manual do Burro</a>
         </div>
         

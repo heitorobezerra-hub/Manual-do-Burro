@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Materia, Assunto
+from .models import Materia, Assunto, Vestibular
 
 
 
@@ -13,4 +13,11 @@ class MateriaAdmin(admin.ModelAdmin):
 class AssuntoAdmin(admin.ModelAdmin):
     list_display = ('id', 'titulo', 'descricao', 'usuario_criador_id', 'materia_id')
     search_fields = ('titulo', 'descricao',)
+    ordering = ('titulo',)
+
+
+@admin.register(Vestibular)
+class VestibularAdmin(admin.ModelAdmin):
+    list_display = ('id', 'titulo', 'link_gabarito','link_prova' )
+    search_fields = ('titulo',)
     ordering = ('titulo',)

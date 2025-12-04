@@ -1,56 +1,138 @@
 {% extends 'base.html' %}
-{% block title %} Login {% endblock %}
+{% block title %} Acesso {% endblock %}
 
 {% block content %}
 
-<div style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
+<style>
+    /* Estilos exclusivos desta página para não poluir o base.html */
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 75vh;
+        background-color: #f4f6f8;
+    }
 
-    <div class="card" style="width: 350px; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+    .login-card {
+        width: 100%;
+        max-width: 400px;
+        background: white;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        border-top: 5px solid #2c3e50; /* Detalhe colorido no topo */
+    }
+
+    .login-title {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 5px;
+        font-weight: 700;
+        font-size: 24px;
+    }
+
+    .login-subtitle {
+        text-align: center;
+        color: #7f8c8d;
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        display: block;
+        color: #34495e;
+        margin-bottom: 8px;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        box-sizing: border-box;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        background-color: #fafafa;
+    }
+
+    /* Efeito ao clicar no campo */
+    .form-input:focus {
+        border-color: #3498db;
+        background-color: #fff;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    }
+
+    .btn-login {
+        width: 100%;
+        padding: 14px;
+        background-color: #27ae60;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+        margin-top: 10px;
+    }
+
+    .btn-login:hover {
+        background-color: #219150;
+        transform: translateY(-2px);
+    }
+
+    .alert-error {
+        background-color: #fee2e2;
+        color: #b91c1c;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        text-align: center;
+        margin-bottom: 20px;
+        border: 1px solid #fecaca;
+    }
+</style>
+
+<div class="login-container">
+    <div class="login-card">
         
-        <h2 style="text-align: center; color: #2c3e50; margin-bottom: 20px;">Bem vindo <br>
-        Digite seu nome e matricula </h2>
+        <div style="text-align: center; font-size: 40px; margin-bottom: 10px;">🔐</div>
         
+        <h2 class="login-title">Área Restrita</h2>
+        <p class="login-subtitle">Entre com seus dados para estudar.</p>
+        
+        {% if erro %}
+            <div class="alert-error">
+                ⚠️ {{ erro }}
+            </div>
+        {% endif %}
+
         <form method="POST">
             {% csrf_token %}
-            <input type="hidden" name="next" value="{{ next }}">
             
-            {% for field in form %}
-                <div style="margin-bottom: 15px;">
-                    <label for="{{ field.id_for_label }}" style="display: block; color: #666; margin-bottom: 5px; font-size: 14px;">
-                        {% if field.name == 'username' %}
-                            Usuário
-                        {% elif field.name == 'password' %}
-                            Matricula
-                        {% else %}
-                            {{ field.label }}
-                        {% endif %}
-                    </label>
-                    
-                    <div style="width: 100%;">
-                        {{ field }}
-                    </div>
-                    
-                    {% for error in field.errors %}
-                        <div style="color: #e74c3c; font-size: 12px; margin-top: 5px;">{{ error }}</div>
-                    {% endfor %}
-                </div>
-            {% endfor %} 
-            
-            {% if form.non_field_errors %}
-                <div style="color: #e74c3c; font-size: 13px; text-align: center; margin-bottom: 15px; background-color: #fadbd8; padding: 10px; border-radius: 5px;">
-                    {{ form.non_field_errors }}
-                </div>
-            {% endif %}
-
-            <div style="text-align: center;">
-                <button type="submit" style="width: 100%; padding: 12px; background-color: #27ae60; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 10px; transition: 0.3s;">
-                    Entrar
-                </button>  
+            <div class="form-group">
+                <label class="form-label">Nome Completo</label>
+                <input type="text" name="username" class="form-input" placeholder="Ex: João Silva" required>
             </div>
+
+            <div class="form-group">
+                <label class="form-label">Senha</label>
+                <input type="text" name="password" class="form-input">
+            </div>
+
+            <button type="submit" class="btn-login">
+                Acessar Sistema
+            </button>
         </form>
 
     </div>
-
 </div>
 
 {% endblock %}

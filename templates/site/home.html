@@ -1,1 +1,72 @@
 {% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* Estilo para a mensagem de boas-vindas */
+    .welcome-header {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        margin-bottom: 30px;
+        border-left: 5px solid #2c3e50; /* Detalhe lateral na cor do menu */
+    }
+
+    .welcome-header h1 {
+        margin: 0;
+        font-size: 24px;
+        color: #333;
+    }
+
+    /* Grid para os retângulos das matérias */
+    .materias-grid {
+        display: grid;
+        /* Cria colunas automáticas com largura mínima de 200px */
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+        gap: 20px;
+    }
+
+    /* O retângulo da matéria (Cartão) */
+    .materia-card {
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 120px; /* Altura do retângulo */
+        border-radius: 8px;
+        text-decoration: none; /* Remove sublinhado do link */
+        color: #2c3e50;
+        font-size: 18px;
+        font-weight: bold;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: transform 0.2s, background-color 0.2s;
+        border: 1px solid #eee;
+    }
+
+    /* Efeito ao passar o mouse */
+    .materia-card:hover {
+        transform: translateY(-5px); /* Sobe um pouquinho */
+        background-color: #f8f9fa;
+        box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        border-color: #3498db; /* Borda azul ao passar o mouse */
+    }
+</style>
+
+<div class="welcome-header">
+    <h1>Olá, <strong>{{ user.username }}</strong>! Bem-vindo de volta.</h1>
+    <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">
+        Selecione uma matéria abaixo para ver os assuntos.
+    </p>
+</div>
+
+<div class="materias-grid">
+    {% for materia in materias %}
+        <a href="#" class="materia-card">
+            {{ materia.nome }}
+        </a>
+    {% empty %}
+        <p>Nenhuma matéria cadastrada no momento.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

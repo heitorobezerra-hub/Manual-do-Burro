@@ -1,4 +1,5 @@
 from django.db import models
+from pymysql import NULL
 from accounts.models import Usuario
 # Create your models here.
 
@@ -20,6 +21,18 @@ class Assunto(models.Model):
 
     class Meta:
         ordering = ['materia_id', 'titulo']
+
+    def __str__(self):
+        return self.titulo
+    
+
+class Vestibular(models.Model):
+    titulo = models.CharField(max_length=100)
+    link_prova = models.CharField(max_length=500)
+    link_gabarito = models.CharField(max_length=500)
+
+    class Meta:
+        ordering = ['titulo']
 
     def __str__(self):
         return self.titulo

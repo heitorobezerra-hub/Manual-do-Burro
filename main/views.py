@@ -8,3 +8,5 @@ def home(request):
 @login_required
 def vestibular(request):
     return render(request, 'site/vestibular.html')
+
+
